@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
-using WebApi.Repositories;
+using Repostories.EFCore;
 
 namespace WebApi.Controllers
 {
@@ -119,7 +118,6 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
            

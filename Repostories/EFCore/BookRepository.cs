@@ -25,8 +25,8 @@ namespace Repostories.EFCore
             .OrderBy(b=>b.Id);
 
 
-        public IQueryable<Book> GetOneBooksById(int id, bool trackChanges) =>
-            FindByCondition(b => b.Id.Equals(id), trackChanges);
+        public Book GetOneBooksById(int id, bool trackChanges) =>
+            FindByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefault();
       
 
         public void UpdateOneBook(Book book) => Update(book);

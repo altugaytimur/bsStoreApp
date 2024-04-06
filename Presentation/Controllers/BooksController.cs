@@ -1,14 +1,17 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Repostories.Contracts;
-using Repostories.EFCore;
 using Services.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebApi.Controllers
+namespace Presentation.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/books")]
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _manager;
@@ -30,7 +33,7 @@ namespace WebApi.Controllers
 
                 throw new Exception(ex.Message);
             }
-           
+
         }
         [HttpGet("{id:int}")]
         public IActionResult GetByIdWithBook([FromRoute(Name = "id")] int id)
@@ -38,7 +41,7 @@ namespace WebApi.Controllers
             try
             {
                 var book = _manager.BookService.GetOneBookById(id, false);
-              
+
                 if (book is null)
                     return NotFound();//404
 
@@ -49,7 +52,7 @@ namespace WebApi.Controllers
 
                 throw new Exception(ex.Message);
             }
-           
+
         }
         [HttpPost]
         public IActionResult CreateOneBook([FromBody] Book book)
@@ -59,7 +62,7 @@ namespace WebApi.Controllers
                 if (book is null)
                     return BadRequest();//400
                 _manager.BookService.CreateOneBook(book);
-                
+
                 return StatusCode(201, book);
             }
             catch (Exception ex)
@@ -83,10 +86,10 @@ namespace WebApi.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            
+
 
         }
-   
+
         [HttpDelete("{id:int}")]
         public IActionResult DeleteOneBook([FromRoute(Name = "id")] int id)
         {
@@ -99,7 +102,7 @@ namespace WebApi.Controllers
             {
                 throw new Exception(ex.Message);
             }
-           
+
         }
         [HttpPatch("{id:int}")]
         public IActionResult PartiallyUpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] JsonPatchDocument<Book> bookPatch)
@@ -120,7 +123,7 @@ namespace WebApi.Controllers
 
                 throw new Exception(ex.Message);
             }
-           
+
         }
 
     }
